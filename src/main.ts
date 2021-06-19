@@ -53,6 +53,5 @@ new ApiLambdaStack(app, 'my-stack-dev', {
   stackName: 'gregbomkamp-api',
   description: 'API used for fun integrations with Spotify/Instagram/IMDB/etc.',
 });
-// new MyStack(app, 'my-stack-prod', { env: prodEnv });
 
 app.synth();
