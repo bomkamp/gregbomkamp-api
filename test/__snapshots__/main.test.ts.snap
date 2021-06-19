@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "GBUrlOutput": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "GBHttpApi039092AB",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3ArtifactHash0F9E13FB": Object {
+      "Description": "Artifact hash for asset \\"c88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3\\"",
+      "Type": "String",
+    },
+    "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3Bucket96A5F48F": Object {
+      "Description": "S3 bucket for asset \\"c88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3\\"",
+      "Type": "String",
+    },
+    "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3VersionKeyD6B64A91": Object {
+      "Description": "S3 key for asset version \\"c88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "GBApiFunction8A0EAFAB": Object {
+      "DependsOn": Array [
+        "LambdaIamRoleD8B84737",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3Bucket96A5F48F",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3VersionKeyD6B64A91",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3VersionKeyD6B64A91",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "TODO": "key",
+          },
+        },
+        "FunctionName": "test-lambda",
+        "Handler": "lambda.handler",
+        "MemorySize": 1024,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LambdaIamRoleD8B84737",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 15,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "GBHttpApi039092AB": Object {
+      "Properties": Object {
+        "CorsConfiguration": Object {
+          "AllowOrigins": Array [
+            "https://gregbomkamp.dev",
+          ],
+        },
+        "Name": "test-http-api",
+        "ProtocolType": "HTTP",
+      },
+      "Type": "AWS::ApiGatewayV2::Api",
+    },
+    "GBHttpApiDefaultRoute7CA76E3B": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GBHttpApi039092AB",
+        },
+        "AuthorizationType": "NONE",
+        "RouteKey": "$default",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "GBHttpApiDefaultRouteHttpIntegration1ef020c6ad87d81aa7a9f59049fe266a76B14458",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "GBHttpApiDefaultRouteHttpIntegration1ef020c6ad87d81aa7a9f59049fe266a76B14458": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GBHttpApi039092AB",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "GBApiFunction8A0EAFAB",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "GBHttpApiDefaultRoutetestGBHttpApiDefaultRouteA1154D08Permission83273C12": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "GBApiFunction8A0EAFAB",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "GBHttpApi039092AB",
+              },
+              "/*/*",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GBHttpApiDefaultStage2C73E5DB": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GBHttpApi039092AB",
+        },
+        "AutoDeploy": true,
+        "StageName": "$default",
+      },
+      "Type": "AWS::ApiGatewayV2::Stage",
+    },
+    "LambdaIamRoleD8B84737": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Description": "IAM Role used to allow Lambda execution & permit gateway access",
+        "RoleName": "test-lambda-role",
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;

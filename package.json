@@ -2,6 +2,8 @@
   "name": "gregbomkamp-api",
   "scripts": {
     "clobber": "npx projen clobber",
+    "build:lambda": "npx projen build:lambda",
+    "local": "npx projen local",
     "compile": "npx projen compile",
     "test:compile": "npx projen test:compile",
     "test": "npx projen test",
@@ -20,11 +22,15 @@
     "start": "npx projen start"
   },
   "devDependencies": {
+    "@types/aws-lambda": "8.10.77",
+    "@types/body-parser": "1.19.0",
+    "@types/cors": "2.8.5",
+    "@types/express": "4.17.1",
     "@types/jest": "^26.0.23",
     "@types/node": "^10.17.0",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
-    "aws-cdk": "^1.95.2",
+    "aws-cdk": "^1.109.0",
     "eslint": "^7.29.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-typescript": "^2.4.0",
@@ -35,12 +41,24 @@
     "npm-check-updates": "^11",
     "projen": "^0.24.11",
     "ts-jest": "^27.0.3",
+    "ts-loader": "9.2.3",
     "ts-node": "^9",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "webpack": "5.39.1",
+    "webpack-cli": "4.7.2"
   },
   "dependencies": {
-    "@aws-cdk/assert": "^1.95.2",
-    "@aws-cdk/core": "^1.95.2"
+    "@aws-cdk/assert": "^1.109.0",
+    "@aws-cdk/aws-apigatewayv2": "^1.109.0",
+    "@aws-cdk/aws-apigatewayv2-integrations": "^1.109.0",
+    "@aws-cdk/aws-iam": "^1.109.0",
+    "@aws-cdk/aws-lambda": "^1.109.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.109.0",
+    "@aws-cdk/core": "^1.109.0",
+    "@vendia/serverless-express": "4.3.9",
+    "body-parser": "1.19.0",
+    "cors": "2.8.5",
+    "express": "4.17.1"
   },
   "bundledDependencies": [],
   "license": "Apache-2.0",
