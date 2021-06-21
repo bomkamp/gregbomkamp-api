@@ -27,16 +27,31 @@ Object {
     },
   },
   "Parameters": Object {
-    "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3ArtifactHash0F9E13FB": Object {
-      "Description": "Artifact hash for asset \\"c88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3\\"",
+    "AssetParameters40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246ArtifactHash1E4B386A": Object {
+      "Description": "Artifact hash for asset \\"40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246\\"",
       "Type": "String",
     },
-    "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3Bucket96A5F48F": Object {
-      "Description": "S3 bucket for asset \\"c88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3\\"",
+    "AssetParameters40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246S3BucketDABAD9E4": Object {
+      "Description": "S3 bucket for asset \\"40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246\\"",
       "Type": "String",
     },
-    "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3VersionKeyD6B64A91": Object {
-      "Description": "S3 key for asset version \\"c88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3\\"",
+    "AssetParameters40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246S3VersionKeyAC6E81DF": Object {
+      "Description": "S3 key for asset version \\"40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246\\"",
+      "Type": "String",
+    },
+    "SPOTIFYCLIENTID": Object {
+      "MinLength": 1,
+      "NoEcho": true,
+      "Type": "String",
+    },
+    "SPOTIFYCLIENTSECRET": Object {
+      "MinLength": 1,
+      "NoEcho": true,
+      "Type": "String",
+    },
+    "SPOTIFYREFRESHTOKEN": Object {
+      "MinLength": 1,
+      "NoEcho": true,
       "Type": "String",
     },
   },
@@ -48,7 +63,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3Bucket96A5F48F",
+            "Ref": "AssetParameters40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246S3BucketDABAD9E4",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -61,7 +76,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3VersionKeyD6B64A91",
+                          "Ref": "AssetParameters40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246S3VersionKeyAC6E81DF",
                         },
                       ],
                     },
@@ -74,7 +89,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc88b0631e9a31fad14917e879566dd993381f4720bedff29054f71dacf5c15e3S3VersionKeyD6B64A91",
+                          "Ref": "AssetParameters40b8f438a7c74893db060f2ddcd87068e0d8b4fd5363cc85cb19c9c4deb70246S3VersionKeyAC6E81DF",
                         },
                       ],
                     },
@@ -86,12 +101,20 @@ Object {
         },
         "Environment": Object {
           "Variables": Object {
-            "TODO": "key",
+            "SPOTIFY_CLIENT_ID": Object {
+              "Ref": "SPOTIFYCLIENTID",
+            },
+            "SPOTIFY_CLIENT_SECRET": Object {
+              "Ref": "SPOTIFYCLIENTSECRET",
+            },
+            "SPOTIFY_REFRESH_TOKEN": Object {
+              "Ref": "SPOTIFYREFRESHTOKEN",
+            },
           },
         },
         "FunctionName": "test-lambda",
         "Handler": "lambda.handler",
-        "MemorySize": 1024,
+        "MemorySize": 2048,
         "Role": Object {
           "Fn::GetAtt": Array [
             "LambdaIamRoleD8B84737",

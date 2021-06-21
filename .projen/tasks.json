@@ -33,31 +33,18 @@
       ],
       "condition": "git diff --exit-code > /dev/null"
     },
-    "build:lambda": {
-      "name": "build:lambda",
-      "steps": [
-        {
-          "exec": "webpack-cli"
-        }
-      ]
-    },
     "local": {
       "name": "local",
       "steps": [
         {
-          "exec": "ts-node ./src/function/app.local.ts"
+          "exec": "tsnd ./src/function/app.local.ts"
         }
       ]
     },
     "compile": {
       "name": "compile",
       "category": "00.build",
-      "description": "Only compile",
-      "steps": [
-        {
-          "exec": "webpack-cli"
-        }
-      ]
+      "description": "Only compile"
     },
     "test:compile": {
       "name": "test:compile",
@@ -93,6 +80,9 @@
       "category": "00.build",
       "description": "Full release build (test+compile)",
       "steps": [
+        {
+          "exec": "webpack-cli"
+        },
         {
           "exec": "npx projen"
         },
@@ -141,7 +131,7 @@
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/aws-lambda @types/body-parser @types/cors @types/express @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit json-schema npm-check-updates ts-jest ts-loader ts-node typescript webpack-cli webpack @aws-cdk/assert @aws-cdk/aws-apigatewayv2-integrations @aws-cdk/aws-apigatewayv2 @aws-cdk/aws-iam @aws-cdk/aws-lambda-nodejs @aws-cdk/aws-lambda @aws-cdk/core @vendia/serverless-express body-parser cors express"
+          "exec": "yarn upgrade @types/aws-lambda @types/body-parser @types/cors @types/ejs @types/express @types/jest @types/js-yaml @types/node @types/spotify-web-api-node @types/swagger-ui-express @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk copy-webpack-plugin dotenv-cli dotenv eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit json-schema npm-check-updates ts-jest ts-loader ts-node-dev ts-node typescript webpack-cli webpack @aws-cdk/assert @aws-cdk/aws-apigatewayv2-integrations @aws-cdk/aws-apigatewayv2 @aws-cdk/aws-iam @aws-cdk/aws-lambda-nodejs @aws-cdk/aws-lambda @aws-cdk/core @vendia/serverless-express body-parser cors ejs express-async-errors express js-yaml spotify-web-api-node swagger-ui-express"
         },
         {
           "exec": "npx projen"
@@ -207,16 +197,6 @@
         }
       ]
     },
-    "deploy": {
-      "name": "deploy",
-      "category": "20.release",
-      "description": "Deploys your CDK app to the AWS cloud",
-      "steps": [
-        {
-          "exec": "cdk deploy"
-        }
-      ]
-    },
     "destroy": {
       "name": "destroy",
       "category": "20.release",
@@ -234,6 +214,14 @@
       "steps": [
         {
           "exec": "cdk diff"
+        }
+      ]
+    },
+    "deploy": {
+      "name": "deploy",
+      "steps": [
+        {
+          "exec": "npm run build && bash ./deploy.sh"
         }
       ]
     }

@@ -1,18 +1,34 @@
+require('express-async-errors'); // eslint-disable-line @typescript-eslint/no-require-imports
+import { readFileSync } from 'fs';
 import { json, urlencoded } from 'body-parser';
-import * as cors from 'cors';
-import * as express from 'express';
+import cors from 'cors';
+import express from 'express';
+import yaml from 'js-yaml';
+import { serve, setup } from 'swagger-ui-express';
+import { SpotifyRouter } from './spotify/spotify.router';
+import {
+  exceptionMiddleware,
+  notFoundMiddleware,
+} from './util/error.utils';
 
 export const app = express();
-const router = express.Router();
 
-router.use(cors());
-router.use(json());
-router.use(urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs').__express); // eslint-disable-line @typescript-eslint/no-require-imports
+app.set('views', __dirname + '/views');
 
-router.get('/', (_req, res) => {
-  res.status(200).json({
-    status: 'UP',
-  });
-});
+app.use(cors());
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
-app.use('/', router);
+// SwaggerDocs
+app.use(serve);
+app.get('/', setup(yaml.load(
+  readFileSync(__dirname + '/openapi/openapi.yaml', 'utf8')) as Object, { customSiteTitle: 'API Docs' }),
+);
+
+app.use(SpotifyRouter);
+
+app.get('*', notFoundMiddleware);
+
+app.use(exceptionMiddleware);

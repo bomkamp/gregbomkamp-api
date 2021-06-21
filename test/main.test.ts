@@ -8,5 +8,7 @@ test('Snapshot', () => {
 
   expect(stack).not.toHaveResource('AWS::S3::Bucket');
   expect(stack).toHaveResource('AWS::Lambda::Function');
-  expect(app.synth().getStackArtifact(stack.artifactId).template).toMatchSnapshot();
+  expect(
+    app.synth().getStackArtifact(stack.artifactId).template,
+  ).toMatchSnapshot();
 });

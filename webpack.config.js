@@ -1,4 +1,5 @@
 const path = require('path')
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: './src/function/lambda.ts',
@@ -20,16 +21,17 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'lambda.js',
-    // library: 'serverlessExpressEdge',
     libraryTarget: 'commonjs2'
   },
   plugins: [
-    // TODO bring back for open api
-    // new CopyPlugin({
-    //   patterns: [
-    //     { from: './src/views', to: 'views' },
-    //     { from: './src/vendia-logo.png' }
-    //   ]
-    // })
+    new CopyPlugin({
+      patterns: [
+        { from: './src/function/openapi', to: 'openapi' },
+        { from: './src/function/views', to: 'views' },
+        {
+          from: './node_modules/swagger-ui-dist/',
+        },
+      ]
+    })
   ]
 }

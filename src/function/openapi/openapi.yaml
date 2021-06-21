@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  title: gregbomkamp-api
+  description: "Simple Spotify API (more integrations planned) for gathering personal\
+    \ metrics for [gregbomkamp (dot) dev](https://gregbomkamp.dev)"
+  contact:
+    name: Greg Bomkamp
+    url: https://gregbomkamp.dev
+    email: bomkampg@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Spotify API Docs
+  url: https://developer.spotify.com/documentation/web-api/
+servers:
+- url: https://cmntvlz4yc.execute-api.us-east-1.amazonaws.com/api/v1
+- url: http://localhost:3002/api/v1
+tags:
+- name: spotify
+  description: Find Spotify Related Metrics
+paths:
+  /spotify/tracks/recent:
+    get:
+      tags:
+      - spotify
+      summary: Get Tracks from my recently played tracks
+      operationId: getRecentlyPlayedTracks
+      parameters:
+      - name: limit
+        in: query
+        description: Limits the number of results to value
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 50
+          exclusiveMaximum: true
+          minimum: 1
+          exclusiveMinimum: true
+          type: number
+          example: 25
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+        "400":
+          description: "Bad request, a query/path param may be invalid"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: An unknown error occurred. Please try again later or contact
+                  me!
+components:
+  schemas:
+    Track:
+      type: object
+      description: A Track on Spotify with the 'played_at' field added
+      example:
+        album:
+          album_type: album
+          artists:
+          - external_urls:
+              spotify: https://open.spotify.com/artist/6e6GkaF6uiSEFuTrlvDJUF
+            href: https://api.spotify.com/v1/artists/6e6GkaF6uiSEFuTrlvDJUF
+            id: 6e6GkaF6uiSEFuTrlvDJUF
+            name: The Twilight Sad
+            type: artist
+            uri: spotify:artist:6e6GkaF6uiSEFuTrlvDJUF
+          available_markets:
+          - AG
+          - BR
+          - BS
+          - US
+          external_urls:
+            spotify: https://open.spotify.com/album/3S8ErBddSbm67sCjQwd35L
+          href: https://api.spotify.com/v1/albums/3S8ErBddSbm67sCjQwd35L
+          id: 3S8ErBddSbm67sCjQwd35L
+          images:
+          - height: 640
+            url: https://i.scdn.co/image/ab67616d0000b273f31065586a5e05dc5aef5c27
+            width: 640
+          - height: 300
+            url: https://i.scdn.co/image/ab67616d00001e02f31065586a5e05dc5aef5c27
+            width: 300
+          - height: 64
+            url: https://i.scdn.co/image/ab67616d00004851f31065586a5e05dc5aef5c27
+            width: 64
+          name: No One Can Ever Know
+          release_date: "2011"
+          release_date_precision: year
+          total_tracks: 9
+          type: album
+          uri: spotify:album:3S8ErBddSbm67sCjQwd35L
+        artists:
+        - external_urls:
+            spotify: https://open.spotify.com/artist/6e6GkaF6uiSEFuTrlvDJUF
+          href: https://api.spotify.com/v1/artists/6e6GkaF6uiSEFuTrlvDJUF
+          id: 6e6GkaF6uiSEFuTrlvDJUF
+          name: The Twilight Sad
+          type: artist
+          uri: spotify:artist:6e6GkaF6uiSEFuTrlvDJUF
+        available_markets:
+        - AG
+        - AR
+        - BB
+        - BO
+        - BR
+        - BS
+        - NI
+        - PA
+        - PE
+        - PY
+        - SR
+        - SV
+        - TT
+        - US
+        - UY
+        - VC
+        disc_number: 1
+        duration_ms: 249173
+        explicit: false
+        external_ids:
+          isrc: GBDCA1101956
+        external_urls:
+          spotify: https://open.spotify.com/track/1HX1ua5y5tAJ5GjghiVCzM
+        href: https://api.spotify.com/v1/tracks/1HX1ua5y5tAJ5GjghiVCzM
+        id: 1HX1ua5y5tAJ5GjghiVCzM
+        is_local: false
+        name: Don't Look At Me
+        popularity: 9
+        preview_url: https://p.scdn.co/mp3-preview/5a4fe7a5f17c8194e26f828e6994e9d8c9e317a6?cid=2c2f4ae10772458388bb2e982b4b0b07
+        track_number: 6
+        type: track
+        uri: spotify:track:1HX1ua5y5tAJ5GjghiVCzM
+        played_at: 2021-06-19T19:16:17.307Z
+      externalDocs:
+        description: Spotify Track Documentation
+        url: https://developer.spotify.com/documentation/web-api/reference/#category-tracks
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A description of the error
+          example: 
+            error: Unable to retrieve tracks. 'limit' must be between 1 and 50 inclusively
