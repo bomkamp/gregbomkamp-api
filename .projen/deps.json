@@ -68,11 +68,6 @@
       "type": "build"
     },
     {
-      "name": "dotenv-cli",
-      "version": "4.0.0",
-      "type": "build"
-    },
-    {
       "name": "dotenv",
       "version": "10.0.0",
       "type": "build"

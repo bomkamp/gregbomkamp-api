@@ -131,7 +131,7 @@
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/aws-lambda @types/body-parser @types/cors @types/ejs @types/express @types/jest @types/js-yaml @types/node @types/spotify-web-api-node @types/swagger-ui-express @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk copy-webpack-plugin dotenv-cli dotenv eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit json-schema npm-check-updates ts-jest ts-loader ts-node-dev ts-node typescript webpack-cli webpack @aws-cdk/assert @aws-cdk/aws-apigatewayv2-integrations @aws-cdk/aws-apigatewayv2 @aws-cdk/aws-iam @aws-cdk/aws-lambda-nodejs @aws-cdk/aws-lambda @aws-cdk/core @vendia/serverless-express body-parser cors ejs express-async-errors express js-yaml spotify-web-api-node swagger-ui-express"
+          "exec": "yarn upgrade @types/aws-lambda @types/body-parser @types/cors @types/ejs @types/express @types/jest @types/js-yaml @types/node @types/spotify-web-api-node @types/swagger-ui-express @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk copy-webpack-plugin dotenv eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit json-schema npm-check-updates ts-jest ts-loader ts-node-dev ts-node typescript webpack-cli webpack @aws-cdk/assert @aws-cdk/aws-apigatewayv2-integrations @aws-cdk/aws-apigatewayv2 @aws-cdk/aws-iam @aws-cdk/aws-lambda-nodejs @aws-cdk/aws-lambda @aws-cdk/core @vendia/serverless-express body-parser cors ejs express-async-errors express js-yaml spotify-web-api-node swagger-ui-express"
         },
         {
           "exec": "npx projen"
